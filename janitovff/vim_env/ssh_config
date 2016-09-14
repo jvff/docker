@@ -1,4 +1,4 @@
-Host bitbucket.com
+Host bitbucket.org
     IdentityFile ~/.ssh/bitbucket_rsa
 
 Host github.com
