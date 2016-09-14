@@ -1,6 +1,6 @@
 FROM janitovff/vim_env
 
-RUN apt-get install -y openjdk-8-jre
+RUN apt-get update && apt-get install -y openjdk-8-jre
 
 RUN echo 'set makeprg=/project/gradlew\ -b\ /project/build.gradle\ assemble' >> /root/.vimrc.local
 RUN echo "noremap <Leader>mc :Dispatch /project/gradlew -b /project/build.gradle clean<CR>" >> /root/.vimrc.local
