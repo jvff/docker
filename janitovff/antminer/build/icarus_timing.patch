@@ -1,0 +1,29 @@
+diff --git a/driver-icarus.c b/driver-icarus.c
+index 2241dd1..fc44848 100644
+--- a/driver-icarus.c
++++ b/driver-icarus.c
+@@ -159,7 +159,13 @@ ASSERT1(sizeof(uint32_t) == 4);
+ 
+ // Both below must be exceeded to complete a set of data
+ // Minimum how long after the first, the last data point must be
+-#define HISTORY_SEC 60
++#define HISTORY_SEC (365*30*24*3600)
++//#define HISTORY_SEC 60
++// Minimum how many points a single ICARUS_HISTORY should have
++#define MIN_DATA_COUNT 5
++// The value MIN_DATA_COUNT used is doubled each history until it exceeds:
++#define MAX_MIN_DATA_COUNT 100
++
+ // Minimum how many points a single ICARUS_HISTORY should have
+ #define MIN_DATA_COUNT 5
+ // The value MIN_DATA_COUNT used is doubled each history until it exceeds:
+@@ -727,7 +733,8 @@ static void set_timing_mode(int this_option_offset, struct cgpu_info *icarus)
+ 			read_count_timing = ANTUSB_READ_COUNT_TIMING;
+ 			break;
+ 		case IDENT_AU3:
+-			info->Hs = ANTU3_HASH_TIME;
++			//info->Hs = ANTU3_HASH_TIME;
++			info->Hs = ANTMINERUSB_HASH_TIME;
+ 			read_count_timing = ANTU3_READ_COUNT_TIMING;
+ 			break;
+ 		default:
