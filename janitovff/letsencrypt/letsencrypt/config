@@ -1,0 +1,2 @@
+WELLKNOWN=/var/www/letsencrypt
+CERTDIR=/etc/letsencrypt/live
