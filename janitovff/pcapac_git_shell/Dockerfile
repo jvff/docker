@@ -1,8 +1,11 @@
 FROM ubuntu:16.04
 
 RUN apt-get update && apt-get install -y git openjdk-8-jre-headless
-RUN useradd gituser -d /home/gituser
+RUN useradd gituser -md /home/gituser
 
-ADD TerminalProxy.tar /root
+ADD TerminalProxy.tar /opt
 
-CMD /root/TerminalProxy/bin/project
+USER gituser
+WORKDIR /home/gituser
+
+CMD /opt/TerminalProxy/bin/project
