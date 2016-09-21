@@ -8,4 +8,8 @@ ADD TerminalProxy.tar /opt
 USER gituser
 WORKDIR /home/gituser
 
+ADD custom_prompt_for_git.bash /home/gituser/.bash_prompt
+
+RUN echo 'source ~/.bash_prompt' >> /home/gituser/.bashrc
+
 CMD /opt/TerminalProxy/bin/project
