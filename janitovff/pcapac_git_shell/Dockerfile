@@ -2,6 +2,8 @@ FROM ubuntu:16.04
 
 RUN apt-get update && apt-get install -y \
     git \
+    vim \
+    nano \
     bash-completion \
     openjdk-8-jre-headless
 RUN useradd gituser -md /home/gituser
@@ -14,5 +16,7 @@ WORKDIR /home/gituser
 ADD custom_prompt_for_git.bash /home/gituser/.bash_prompt
 
 RUN echo 'source ~/.bash_prompt' >> /home/gituser/.bashrc
+
+ENV EDITOR=nano
 
 CMD /opt/TerminalProxy/bin/project
