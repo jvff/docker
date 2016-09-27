@@ -17,4 +17,4 @@ RUN vim +PluginInstall +qall
 RUN echo "set cc=81" >> /root/.vimrc.local
 RUN echo "noremap <Leader>mk :Make<CR>" >> /root/.vimrc.local
 RUN echo "noremap <Leader>gf :Git fetch<CR>" >> /root/.vimrc.local
-RUN echo "noremap <Leader>gl :GV<CR>" >> /root/.vimrc.local
+RUN echo "noremap <Leader>gl :GV --all<CR>" >> /root/.vimrc.local
