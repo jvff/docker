@@ -1,0 +1,3 @@
+allprojects {
+    apply plugin: 'com.janitovff.dockman'
+}
