@@ -1,0 +1,16 @@
+import com.janitovff.gradle.dockman.model.DockerImage
+
+model {
+    components {
+        vimspf13(DockerImage) {
+            from 'janitovff/vim'
+
+            run 'apt-get update',
+                'apt-get upgrade -y',
+                'apt-get install -y curl exuberant-ctags git'
+
+            run 'curl http://j.mp/spf13-vim3 -L -o - | sh'
+        }
+    }
+}
+

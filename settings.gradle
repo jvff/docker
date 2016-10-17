@@ -1,1 +1,2 @@
 include 'janitovff:vim'
+include 'janitovff:vimspf13'
