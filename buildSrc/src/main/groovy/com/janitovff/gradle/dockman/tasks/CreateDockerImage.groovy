@@ -55,7 +55,8 @@ public class CreateDockerImage extends DefaultTask {
 
     private void createImage() {
         createDockerClient()
-            .buildImageCmd(projectDirectory)
+            .buildImageCmd()
+            .withBaseDirectory(projectDirectory)
             .withTag(tag)
             .withDockerfile(dockerFile)
             .exec(imageCreationListener)
