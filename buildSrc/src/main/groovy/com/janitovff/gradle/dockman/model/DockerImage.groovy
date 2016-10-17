@@ -5,6 +5,7 @@ import org.gradle.platform.base.ComponentSpec
 public interface DockerImage extends ComponentSpec {
     void from(String image)
     void run(String command)
+    void run(String... commands)
     void add(String sourceFile, String destinationDirectory)
     void cmd(String command)
     void env(Closure environment)

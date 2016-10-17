@@ -20,6 +20,10 @@ public class DefaultDockerImage extends DefaultComponentSpec
         dockerFileCommands.add "RUN $command"
     }
 
+    void run(String... commands) {
+        run commands.join(" && ")
+    }
+
     void add(String sourceFile, String destinationDirectory) {
         requestedFiles.add new File(sourceFile)
         dockerFileCommands.add "ADD $sourceFile $destinationDirectory"
