@@ -19,6 +19,9 @@ import static com.github.dockerjava.core.RemoteApiVersion.VERSION_1_23
 
 public class CreateDockerImage extends DefaultTask {
     @Input
+    String baseImage
+
+    @Input
     List<String> dockerFileCommands
 
     @InputDirectory
@@ -32,6 +35,7 @@ public class CreateDockerImage extends DefaultTask {
 
     public void setComponent(DockerImageInternal component) {
         dockerFileCommands = component.dockerFileCommands
+        baseImage = component.baseImage
         tag = component.tag
     }
 

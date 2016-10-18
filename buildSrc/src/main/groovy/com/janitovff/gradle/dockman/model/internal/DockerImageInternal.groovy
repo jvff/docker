@@ -6,6 +6,7 @@ import com.janitovff.gradle.dockman.model.DockerImage
 
 @Managed
 public interface DockerImageInternal extends DockerImage {
-    List<String> getDockerFileCommands()
+    String getBaseImage()
     String getTag()
+    List<String> getDockerFileCommands()
 }

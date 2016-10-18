@@ -1,6 +1,11 @@
 package com.janitovff.gradle.dockman.plugins.internal
 
+import org.gradle.api.internal.resolve.ProjectModelResolver
 import org.gradle.api.Task
+import org.gradle.api.UnknownProjectException
+import org.gradle.internal.service.ServiceRegistry
+import org.gradle.model.Each
+import org.gradle.model.internal.registry.ModelRegistry
 import org.gradle.model.ModelMap
 import org.gradle.model.Mutate
 import org.gradle.model.Path
@@ -32,5 +37,40 @@ public class DockManImagePlugin extends RuleSource {
                 task.outputDirectory = new File(buildDir, outputSubDirectory)
             }
         }
+    }
+
+    @Mutate
+    public void addDependencyToBaseImage(@Each CreateDockerImage task,
+            ServiceRegistry serviceRegistry) {
+        try {
+            def project = getBaseImageProject(task.baseImage, serviceRegistry)
+
+            addDependencyToBaseImageTask(task, project)
+        } catch (UnknownProjectException exception) {
+            // No base image task to depend on
+        }
+    }
+
+    private ModelRegistry getBaseImageProject(String baseImage,
+            ServiceRegistry serviceRegistry) {
+        def resolver = serviceRegistry.get(ProjectModelResolver)
+        def baseImageProject = ":" + baseImage.replaceAll("/", ":")
+
+        return resolver.resolveProjectModel(baseImageProject)
+    }
+
+    private void addDependencyToBaseImageTask(CreateDockerImage task,
+            ModelRegistry projectModel) {
+        def baseImageTask = getBaseImageTask(task.baseImage, projectModel)
+
+        if (baseImageTask != null)
+            task.dependsOn baseImageTask
+    }
+
+    private getBaseImageTask(String baseImage, ModelRegistry projectModel) {
+        def baseImageName = baseImage.split("/").last().capitalize()
+        def tasks = projectModel.find("tasks", Object)
+
+        return tasks.find { task -> task.name == "createImage$baseImageName" }
     }
 }

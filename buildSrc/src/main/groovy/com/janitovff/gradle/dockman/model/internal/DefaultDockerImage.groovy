@@ -10,6 +10,10 @@ public class DefaultDockerImage extends DefaultComponentSpec
     private LinkedList<String> dockerFileCommands = new LinkedList<String>()
     private LinkedList<File> requestedFiles = new LinkedList<File>()
 
+    String getBaseImage() {
+        return baseImage
+    }
+
     void from(String baseImage) {
         this.baseImage = baseImage
 
